@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Business Name</h1>
+    <p id="name"></p>
+    <h3>Economy Cars</h3>
+    <p>Economy</p>
+    <h3>Economy Cars Available</h3>
+    <p id="e"></p>
+    <h3>Midsize Cars</h3>
+    <p>Midsize</p>
+    <h3>Midsize Cars Available</h3>
+    <p id="m"></p>
+    <button type="button" onclick="mycar()">Update Availablity</button>
+    <button type="button" onclick="rentMid()">Rent out 1 Midsize Car</button>
+    <button type="button" onclick="rentEco()">Rent out 1 Economy Car</button>
+    
+    <script>
+
+var car = { 
+   name: 'Enterprise Car Rentals',
+   EcoCarsAvailable: '90',
+   MidsizeCarsAvailable: '180',
+ }
+  function mycar() {
+     document.getElementById("name").innerHTML = car.name;
+     document.getElementById("e").innerHTML = car.EcoCarsAvailable;
+     document.getElementById("m").innerHTML = car.MidsizeCarsAvailable;
+}
+function rentMid() {
+    document.getElementById("m").innerHTML = car.MidsizeCarsAvailable;
+    car.MidsizeCarsAvailable = car.MidsizeCarsAvailable -1
+    return car.MidsizeCarsAvailable
+}
+function rentEco() {
+    document.getElementById("e").innerHTML = car.EcoCarsAvailable;
+    car.EcoCarsAvailable = car.EcoCarsAvailable -1
+    return car.EcoCarsAvailable
+}
+
+
+</script>
+
+</body>
+</html>
