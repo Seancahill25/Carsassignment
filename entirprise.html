@@ -1,51 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+	<meta charset="UTF-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="ie=edge" http-equiv="X-UA-Compatible">
+	<title>Document</title>
 </head>
 <body>
-    <h1>Business Name</h1>
-    <p id="name"></p>
-    <h3>Economy Cars</h3>
-    <p>Economy</p>
-    <h3>Economy Cars Available</h3>
-    <p id="e"></p>
-    <h3>Midsize Cars</h3>
-    <p>Midsize</p>
-    <h3>Midsize Cars Available</h3>
-    <p id="m"></p>
-    <button type="button" onclick="mycar()">Update Availablity</button>
-    <button type="button" onclick="rentMid()">Rent out 1 Midsize Car</button>
-    <button type="button" onclick="rentEco()">Rent out 1 Economy Car</button>
-    
-    <script>
+	<h1>Business Name</h1>
+	<p id="name"></p>
+	<h3>Economy Cars</h3>
+	<p>Economy</p>
+	<h3>Economy Cars Available</h3>
+	<p id="e"></p>
+	<h3>Midsize Cars</h3>
+	<p>Midsize</p>
+	<h3>Midsize Cars Available</h3>
+	<p id="m"></p><button onclick="mycar()" type="button">Update Availablity</button> <button onclick="rentMid()" type="button">Rent out 1 Midsize Car</button> <button onclick="rentEco()" type="button">Rent out 1 Economy Car</button>
+	<form id="Select" name="Select" onsubmit="return rentout()">
+		Name:<br>
+		<input name="name" type="text"><br>
+		Car type:<br>
+		<select name="type" onchange="display(this.value)">
+			<option>
+			</option>
+			<option value="Economy">
+				Economy
+			</option>
+			<option value="Midsize">
+				Midsize
+			</option>
+		</select> <input type="submit">
+	</form>
+	<p id="display"></p>
+	<script>
 
-var car = { 
-   name: 'Enterprise Car Rentals',
-   EcoCarsAvailable: '90',
-   MidsizeCarsAvailable: '180',
- }
-  function mycar() {
-     document.getElementById("name").innerHTML = car.name;
-     document.getElementById("e").innerHTML = car.EcoCarsAvailable;
-     document.getElementById("m").innerHTML = car.MidsizeCarsAvailable;
-}
-function rentMid() {
-    document.getElementById("m").innerHTML = car.MidsizeCarsAvailable;
-    car.MidsizeCarsAvailable = car.MidsizeCarsAvailable -1
-    return car.MidsizeCarsAvailable
-}
-function rentEco() {
-    document.getElementById("e").innerHTML = car.EcoCarsAvailable;
-    car.EcoCarsAvailable = car.EcoCarsAvailable -1
-    return car.EcoCarsAvailable
-}
+	var car = { 
+	   name: 'Enterprise Car Rentals',
+	   Economy: {
+	       Price: "350",
+	       Available: '90',
+	   },
+	   Midsize: {
+	       Price: "400",
+	       Available: "180",
+	   }
+	};
+	var rental = { 
+	              Economy: [],
+	              Midsize: [],
+	          };
+	function display(val){ 
+	      var mySelection = car[val];
+	      document.getElementById('display').innerHTML = val + " $" + mySelection.Price + "<br>" + mySelection.Available + " Available" ;
+	      }
+	function rentout(){
+	      var renter = document.forms["Select"]['name'].value;
+	      var size = document.forms["Select"]['type'].value;
+	         
+	       if( renter ==""){
+	          alert("Enter Name");
+	       }
+	       else if( size == ""){
+	          alert("Choose a car");
+	          }
+	     else { 
+	              rental[size].push({name: renter})
+	              car[size].Available--; 
+	              document.getElementById('display').innerHTML = "Car has been Rented"
+	          }
+	          return false 
+	      }
+	function mycar() {
+	    document.getElementById("name").innerHTML = car.name;
+	    document.getElementById("e").innerHTML = car.Economy.Available;
+	    document.getElementById("m").innerHTML = car.Midsize.Available;
+	}
+	function rentMid() {
+	   document.getElementById("m").innerHTML = car.Midsize.Available;
+	   car.Midsize.Available = car.Midsize.Available -1
+	   return car.Midsize.Available
+	}
+	function rentEco() {
+	   document.getElementById("e").innerHTML = car.Economy.Available;
+	   car.Economy.Available = car.Economy.Available -1
+	   return car.Economy.Available
+	}
 
 
-</script>
-
+	</script>
 </body>
 </html>
